@@ -1,0 +1,57 @@
+services:
+  preciosgamer.products.consumer:
+    image: ${DOCKER_REGISTRY-}preciosgamerproductsconsumer
+    build:
+      context: .
+      dockerfile: src/Products/PreciosGamer.Products.Consumer/Dockerfile
+    depends_on:
+      - postgres
+      - rabbitmq
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: 8080
+      ASPNETCORE_HTTPS_PORT: 8081
+      ConnectionStrings__PostgreSQL: "User ID=user;Password=password;Host=postgres;Port=5432;Database=preciosgamerproducts;"
+      RabbitMQ__Host: "amqp://rabbitmq:5672"
+      RabbitMQ__Username: "guest"
+      RabbitMQ__Password: "guest"
+    ports:
+      - "8080"
+      - "8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ./.containers/productsconsumer/logs:/Logs
+  preciosgamer.products.compragamer:
+    image: ${DOCKER_REGISTRY-}preciosgamerproductscompragamer
+    build:
+      context: .
+      dockerfile: src/Products/PreciosGamer.Products.CompraGamer/Dockerfile
+    depends_on:
+      - rabbitmq
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      RabbitMQ__Host: "amqp://rabbitmq:5672"
+      RabbitMQ__Username: "guest"
+      RabbitMQ__Password: "guest"
+      ProductsJobCronSchedule: "0 14 * * *"
+    volumes:
+      - ./.containers/productscompragamer/logs:/Logs
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
+    volumes:
+      - ./.containers/postgresql/data:/var/lib/postgresql/data
+  rabbitmq:
+    image: rabbitmq:4.1.0-management
+    volumes:
+      - ./.containers/rabbitmq:/var/lib/rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672

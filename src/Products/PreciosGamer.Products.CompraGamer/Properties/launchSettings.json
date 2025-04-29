@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "PreciosGamer.Products.CompraGamer": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
