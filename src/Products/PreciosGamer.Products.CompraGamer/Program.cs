@@ -29,7 +29,7 @@ try
             {
                 trigger
                     .ForJob(compraGamerProductsJobKey)
-                    .WithCronSchedule(builder.Configuration["ProductsJobCronSchedule"] ?? "0 0 * * *");
+                    .WithCronSchedule(builder.Configuration["ProductsJobCronSchedule"] ?? "0 0 0 ? * *");
             });
     });
 

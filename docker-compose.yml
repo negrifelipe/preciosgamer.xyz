@@ -36,7 +36,7 @@ services:
       RabbitMQ__Host: "amqp://rabbitmq:5672"
       RabbitMQ__Username: "guest"
       RabbitMQ__Password: "guest"
-      ProductsJobCronSchedule: "0 14 * * *"
+      ProductsJobCronSchedule: "0 0 14 ? * *"
     volumes:
       - ./.containers/productscompragamer/logs:/Logs
   postgres:
