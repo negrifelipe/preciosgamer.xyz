@@ -400,3 +400,7 @@ FodyWeavers.xsd
 *.sln.iml
 .idea
 .containers
+appsettings.Development.json
+Logs
+docker-compose.override.yml
+docker-compose.override.*.yml
