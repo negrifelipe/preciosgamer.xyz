@@ -1,9 +1,15 @@
 {
   "profiles": {
     "PreciosGamer.Products.CompraGamer": {
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      },
       "commandName": "Project"
     },
     "Container (Dockerfile)": {
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      },
       "commandName": "Docker"
     }
   }

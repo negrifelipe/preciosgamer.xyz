@@ -6,6 +6,7 @@ using PreciosGamer.Products.CompraGamer.Services;
 using Quartz;
 using Serilog.Events;
 using Serilog;
+using Microsoft.Extensions.Logging;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -21,14 +22,12 @@ try
     builder.Services.AddSingleton<CompraGamerProductFetcherService>();
     builder.Services.AddQuartz(configure =>
     {
-        var compraGamerProductsJobKey = new JobKey(nameof(CompraGamerProductsJob));
-
         configure
-            .AddJob<CompraGamerProductsJob>(compraGamerProductsJobKey)
+            .AddJob<CompraGamerProductsJob>(CompraGamerProductsJob.JobKey)
             .AddTrigger(trigger =>
             {
                 trigger
-                    .ForJob(compraGamerProductsJobKey)
+                    .ForJob(CompraGamerProductsJob.JobKey)
                     .WithCronSchedule(builder.Configuration["ProductsJobCronSchedule"] ?? "0 0 0 ? * *");
             });
     });
@@ -48,6 +47,17 @@ try
     });
 
     var app = builder.Build();
+
+    if (builder.Environment.IsDevelopment())
+    {
+        var logger = app.Services.GetRequiredService<Microsoft.Extensions.Logging.ILogger<Program>>();
+        var schedulerFactory = app.Services.GetRequiredService<ISchedulerFactory>();
+        var scheduler = await schedulerFactory.GetScheduler();
+        logger.LogInformation("Development environment. Triggering the job automatically..");
+        await scheduler.TriggerJob(CompraGamerProductsJob.JobKey);
+        await scheduler.Standby();
+        logger.LogInformation("Triggered all jobs");
+    }
 
     app.Run();
 }

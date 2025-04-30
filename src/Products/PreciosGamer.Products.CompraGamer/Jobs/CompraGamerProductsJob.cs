@@ -10,6 +10,8 @@ namespace PreciosGamer.Products.CompraGamer.Jobs;
 
 public class CompraGamerProductsJob : IJob
 {
+    public static readonly JobKey JobKey = new(nameof(CompraGamerProductsJob));
+
     private readonly ILogger<CompraGamerProductsJob> _logger;
     private readonly IPublishEndpoint _publishEndpoint;
     private readonly CompraGamerProductFetcherService _productFetcherService;
