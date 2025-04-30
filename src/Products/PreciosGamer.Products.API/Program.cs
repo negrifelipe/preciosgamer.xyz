@@ -3,6 +3,7 @@ using Serilog;
 using Microsoft.EntityFrameworkCore;
 using PreciosGamer.Products.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using PreciosGamer.Products.Persistence.Entities;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -39,8 +40,8 @@ try
         if (search is not null)
         {
             productsQuery = productsQuery
-                .Where(x => x.SearchVector.Matches(EF.Functions.PhraseToTsQuery("spanish", search)))
-                .OrderByDescending(x => x.SearchVector.Rank(EF.Functions.PhraseToTsQuery("spanish", search)));
+                .Where(x => x.SearchVector.Matches(EF.Functions.PlainToTsQuery("spanish", search)))
+                .OrderByDescending(x => x.SearchVector.Rank(EF.Functions.PlainToTsQuery("spanish", search)));
         }
 
         var products = await productsQuery
