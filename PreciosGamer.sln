@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreciosGamer.Products.Compr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreciosGamer.Products.Consumer", "src\Products\PreciosGamer.Products.Consumer\PreciosGamer.Products.Consumer.csproj", "{DDCB986B-F816-4C9A-86F0-B8BE4DA91827}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreciosGamer.Products.API", "src\Products\PreciosGamer.Products.API\PreciosGamer.Products.API.csproj", "{10216A85-ACF4-4D2C-944F-FBE67E17AEEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{DDCB986B-F816-4C9A-86F0-B8BE4DA91827}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDCB986B-F816-4C9A-86F0-B8BE4DA91827}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDCB986B-F816-4C9A-86F0-B8BE4DA91827}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10216A85-ACF4-4D2C-944F-FBE67E17AEEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10216A85-ACF4-4D2C-944F-FBE67E17AEEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10216A85-ACF4-4D2C-944F-FBE67E17AEEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10216A85-ACF4-4D2C-944F-FBE67E17AEEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{AF1CAAE3-FE61-46FA-9D66-1619A1E16F05} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{E03991DA-4DCB-4F86-A76B-1F9FB84C9B0E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{DDCB986B-F816-4C9A-86F0-B8BE4DA91827} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{10216A85-ACF4-4D2C-944F-FBE67E17AEEF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5788F55C-2CB3-40F6-A9CB-48344C7EEF68}
