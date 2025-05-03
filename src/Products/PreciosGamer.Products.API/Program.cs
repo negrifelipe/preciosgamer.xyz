@@ -3,6 +3,7 @@ using Serilog;
 using Microsoft.EntityFrameworkCore;
 using PreciosGamer.Products.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using PreciosGamer.Products.Dtos;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -54,28 +55,12 @@ try
         var products = await productsQuery
             .Skip(page * pageSize)
             .Take(pageSize)
-            .Select(x => new
-            {
-                x.SKU,
-                x.StoreId,
-                x.Name,
-                x.Price,
-                x.Url,
-                x.ImageUrl,
-                x.CreateDate
-            })
+            .Select(x => new ProductResponse(x.SKU, x.StoreId, x.CreateDate, new ProductDetails(x.Name, x.Url, x.ImageUrl, x.Price)))
             .ToListAsync();
 
         var productsCount = await productsQuery.CountAsync();
 
-        return Results.Ok(new
-        {
-            data = products,
-            page,
-            pageSize,
-            hasNextPage = productsCount > (page * pageSize) + products.Count,
-            hasPreviousPage = page > 0
-        });
+        return Results.Ok(new PaginatedResponse<ProductResponse>(products, page, pageSize, productsCount));
     });
 
     app.Run();
