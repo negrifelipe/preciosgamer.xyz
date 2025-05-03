@@ -3,7 +3,6 @@ using Serilog;
 using Microsoft.EntityFrameworkCore;
 using PreciosGamer.Products.Persistence;
 using Microsoft.AspNetCore.Mvc;
-using PreciosGamer.Products.Persistence.Entities;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -22,7 +21,11 @@ try
 
     app.UseHttpsRedirection();
 
-    app.MapGet("/", async (ProductsDbContext context, [FromQuery(Name = "p")] int page = 0, [FromQuery(Name = "s")] int pageSize = 50, [FromQuery(Name = "q")] string? search = null) =>
+    app.MapGet("/", async (
+        ProductsDbContext context, 
+        [FromQuery(Name = "p")] int page = 0, 
+        [FromQuery(Name = "s")] int pageSize = 50,
+        [FromQuery(Name = "q")] string? search = null) =>
     {
         var productsQuery = context.Products
             .AsNoTracking();
