@@ -1,6 +1,6 @@
 @PreciosGamer.Products.API_HostAddress = http://localhost:5153
 
-GET {{PreciosGamer.Products.API_HostAddress}}?p=1&s=10
+GET {{PreciosGamer.Products.API_HostAddress}}?p=1&s=10&q=Ryzen
 Accept: application/json
 
 ###
