@@ -104,8 +104,9 @@ try
        [FromQuery(Name = "endDate")] DateOnly? endDate) =>
     {
         var query = context.ProductPrices
+            .AsNoTracking()
             .OrderByDescending(x => x.CreateDate)
-            .Where(x => x.SKU == productSKU && x.StoreId == x.StoreId);
+            .Where(x => x.SKU == productSKU && x.StoreId == storeId);
 
         if(startDate is not null)
         {
