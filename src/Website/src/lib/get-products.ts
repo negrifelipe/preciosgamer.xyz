@@ -8,7 +8,7 @@ export async function getProducts(
   page: number,
   search: string | undefined
 ): Promise<PaginatedResponse<ProductResponse>> {
-  const url = new URL("/products", import.meta.env.API_URL);
+  const url = new URL("/products", import.meta.env.PUBLIC_API_URL);
   url.searchParams.append("p", page.toString());
   url.searchParams.append("s", "100");
 
@@ -25,7 +25,10 @@ export async function getProduct(
   storeId: number,
   sku: string
 ): Promise<ProductWithPricesResponse | undefined> {
-  const url = new URL(`/products/${storeId}/${sku}`, import.meta.env.API_URL);
+  const url = new URL(
+    `/products/${storeId}/${sku}`,
+    import.meta.env.PUBLIC_API_URL
+  );
   const response = await fetch(url);
 
   if (!response.ok) {
