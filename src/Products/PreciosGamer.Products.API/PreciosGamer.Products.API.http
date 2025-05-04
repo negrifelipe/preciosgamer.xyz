@@ -4,3 +4,6 @@ GET {{PreciosGamer.Products.API_HostAddress}}?p=0&s=10
 Accept: application/json
 
 ###
+
+GET {{PreciosGamer.Products.API_HostAddress}}/1/100-100000593WOF
+Accept: application/json

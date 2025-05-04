@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PreciosGamer.Products.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using PreciosGamer.Products.Dtos;
+using System.Text.Json;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -61,6 +62,30 @@ try
         var productsCount = await productsQuery.CountAsync();
 
         return Results.Ok(new PaginatedResponse<ProductResponse>(products, page, pageSize, productsCount));
+    });
+
+    app.MapGet("/{StoreId}/{ProductSKU}", async (
+        ProductsDbContext context,
+        [FromRoute(Name = "StoreId")] int storeId,
+        [FromRoute(Name = "ProductSKU")] string productSKU) =>
+    {
+        var product = await context.Products
+            .AsNoTracking()
+            .Where(x => x.StoreId == storeId && x.SKU == productSKU)
+            .Select(x => new ProductWithPricesResponse(
+                x.SKU, 
+                x.StoreId, 
+                x.CreateDate, 
+                new ProductDetails(x.Name, x.Url, x.ImageUrl, x.Price),
+                context.ProductPrices
+                    .Where(p => p.StoreId == x.StoreId && p.SKU == x.SKU)
+                    .OrderByDescending(x => x.CreateDate)
+                    .Take(30)
+                    .Select(x => new ProductPriceResponse(x.SKU, x.StoreId, x.CreateDate, x.Price))
+                    .ToList()))
+            .FirstOrDefaultAsync();
+
+        return Results.Ok(product);
     });
 
     app.Run();
