@@ -17,3 +17,17 @@ export async function getProducts(
 
   return await response.json();
 }
+
+export async function getProduct(
+  storeId: number,
+  sku: string
+): Promise<ProductResponse | undefined> {
+  const url = new URL(`/products/${storeId}/${sku}`, import.meta.env.API_URL);
+  const response = await fetch(url);
+
+  if (response.status === 404) {
+    return undefined;
+  }
+
+  return await response.json();
+}
