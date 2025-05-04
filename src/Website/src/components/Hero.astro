@@ -1,16 +1,13 @@
 ---
-import SearchIcon from "./SearchIcon.astro";
+import SearchInput from '@/components/SearchInput.astro';
 ---
 
-<section class="w-full md:mt-20">
-    <h1 class="text-center text-4xl font-semibold">Busca productos en tiendas gaming del pais</h1>    
-    <p class="text-center text-neutral-400 text-xl">Encuentra la tienda que tenga el mejor precio!</p>
-    <div class="flex justify-center mt-5">
-        <div class="relative w-full md:max-w-2xl">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                <SearchIcon class="fill-white size-5" />
-            </span>
-            <input class="w-full p-3 pl-10 border border-neutral-800 rounded-md" placeholder="Buscar producto..." />
+<form method="get" action="/productos">
+    <section class="w-full md:mt-20">
+        <h1 class="text-center text-4xl font-semibold">Busca productos en tiendas gaming del pais</h1>    
+        <p class="text-center text-neutral-400 text-xl">Encuentra la tienda que tenga el mejor precio!</p>
+        <div class="flex justify-center mt-5">
+            <SearchInput class="w-full md:max-w-2xl" />        
         </div>
-    </div>
-</section>
+    </section>
+</form>

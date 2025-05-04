@@ -1,0 +1,10 @@
+---
+import SearchIcon from "@/components/SearchIcon.astro";
+---
+
+<div class:list={["relative", Astro.props.class]}>
+    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+        <SearchIcon class="fill-white size-5" />
+    </span>
+    <input id="search" name="search" type="text" class="w-full p-3 pl-10 border border-neutral-800 rounded-md" value={Astro.props.value} placeholder="Buscar producto..." />
+</div>

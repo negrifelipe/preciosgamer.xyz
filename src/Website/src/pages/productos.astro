@@ -1,0 +1,21 @@
+---
+import ProductCard from '@/components/ProductCard.astro';
+import SearchInput from '@/components/SearchInput.astro';
+import Layout from '@/layouts/Layout.astro';
+import { getProducts } from '@/lib/get-products';
+export const prerender = false; 
+
+const search = Astro.url.searchParams.get('search') || '';
+const page = parseInt(Astro.url.searchParams.get('page') || "0") || 0;
+
+const products = await getProducts(page, search);
+---
+
+<Layout>
+    <form method="get">
+        <SearchInput value={search} />
+    </form>
+    <section class="grid md:grid-cols-3 gap-4 mt-4">
+        {products.items.map(product => <ProductCard product={product} />)}
+    </section>
+</Layout>
