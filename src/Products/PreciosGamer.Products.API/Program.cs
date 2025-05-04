@@ -85,6 +85,11 @@ try
                     .ToList()))
             .FirstOrDefaultAsync();
 
+        if(product is null)
+        {
+            return Results.NotFound();
+        }
+
         return Results.Ok(product);
     });
 

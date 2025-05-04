@@ -1,4 +1,5 @@
 ---
+import ProductInformation from '@/components/ProductInformation.astro';
 import Layout from '@/layouts/Layout.astro';
 import { getProduct } from '@/lib/get-products';
 
@@ -9,9 +10,11 @@ const product = await getProduct(parseInt(storeId ?? "0"), productSKU ?? "");
 
 if(!product) 
     return Astro.redirect("/")
-
 ---
 
 <Layout>
+    <ProductInformation name={product.details.name} price={product.details.price} url={product.details.url} imageUrl={product.details.imageUrl} />
+
+    <hr class="text-neutral-800 my-5" />
 
 </Layout>

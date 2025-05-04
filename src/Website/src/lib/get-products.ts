@@ -1,5 +1,8 @@
 import type { PaginatedResponse } from "@/types/Pagination";
-import type { ProductResponse } from "@/types/Product";
+import type {
+  ProductResponse,
+  ProductWithPricesResponse,
+} from "@/types/Product";
 
 export async function getProducts(
   page: number,
@@ -21,7 +24,7 @@ export async function getProducts(
 export async function getProduct(
   storeId: number,
   sku: string
-): Promise<ProductResponse | undefined> {
+): Promise<ProductWithPricesResponse | undefined> {
   const url = new URL(`/products/${storeId}/${sku}`, import.meta.env.API_URL);
   const response = await fetch(url);
 
