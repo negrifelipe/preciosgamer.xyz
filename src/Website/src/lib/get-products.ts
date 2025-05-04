@@ -28,7 +28,7 @@ export async function getProduct(
   const url = new URL(`/products/${storeId}/${sku}`, import.meta.env.API_URL);
   const response = await fetch(url);
 
-  if (response.status === 404) {
+  if (!response.ok) {
     return undefined;
   }
 

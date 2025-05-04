@@ -1,5 +1,6 @@
 ---
 import ProductInformation from '@/components/ProductInformation.astro';
+import ProductPriceCharts from '@/components/ProductPriceCharts';
 import Layout from '@/layouts/Layout.astro';
 import { getProduct } from '@/lib/get-products';
 
@@ -16,5 +17,7 @@ if(!product)
     <ProductInformation name={product.details.name} price={product.details.price} url={product.details.url} imageUrl={product.details.imageUrl} />
 
     <hr class="text-neutral-800 my-5" />
-
+    
+    <ProductPriceCharts defaultPrices={product.prices} client:only />
+    
 </Layout>
