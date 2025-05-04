@@ -1,6 +1,8 @@
 ---
 import ProductCard from '@/components/ProductCard.astro';
 import SearchInput from '@/components/SearchInput.astro';
+import Breadcrumb from '@/components/ui/Breadcrumb.astro';
+import BreadcrumbItem from '@/components/ui/BreadcrumbItem.astro';
 import Layout from '@/layouts/Layout.astro';
 import { getProducts } from '@/lib/get-products';
 export const prerender = false; 
@@ -12,6 +14,9 @@ const products = await getProducts(page, search);
 ---
 
 <Layout>
+    <Breadcrumb class="mb-4">
+        <BreadcrumbItem name="Productos" />
+    </Breadcrumb>
     <form method="get">
         <SearchInput value={search} />
     </form>

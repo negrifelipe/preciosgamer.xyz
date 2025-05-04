@@ -1,6 +1,8 @@
 ---
 import ProductInformation from '@/components/ProductInformation.astro';
 import ProductPriceCharts from '@/components/ProductPriceCharts';
+import Breadcrumb from '@/components/ui/Breadcrumb.astro';
+import BreadcrumbItem from '@/components/ui/BreadcrumbItem.astro';
 import Layout from '@/layouts/Layout.astro';
 import { getProduct } from '@/lib/get-products';
 
@@ -11,9 +13,17 @@ const product = await getProduct(parseInt(storeId ?? "0"), productSKU ?? "");
 
 if(!product) 
     return Astro.redirect("/")
+
+    
 ---
 
 <Layout title={`${product.details.name} - Precios Gamer`}>
+    <Breadcrumb class="mb-4">
+        <BreadcrumbItem name="Productos" href='/productos' />
+        <BreadcrumbItem name="Compra Gamer" />
+        <BreadcrumbItem name={product.sku} />
+    </Breadcrumb>
+
     <ProductInformation name={product.details.name} price={product.details.price} url={product.details.url} imageUrl={product.details.imageUrl} />
 
     <hr class="text-neutral-800 my-5" />
