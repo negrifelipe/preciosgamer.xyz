@@ -1,10 +1,12 @@
 # preciosgamer.xyz
 
-Analisis de precios de Compra Gamer
+English | [Español](/README-ES.md)
+
+Gaming stores prices in a single place
 
 ## Running the solution
 
-There is a docker compose that will set up all the infrastructure you need to run the solution without configuring anything.
+There is a `docker compose` that will set up all the infrastructure you need to run the solution without configuring anything.
 
 This will run:
 
