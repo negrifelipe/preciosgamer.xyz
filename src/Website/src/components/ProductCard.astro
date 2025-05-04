@@ -10,8 +10,8 @@ const { product } = Astro.props as Props;
 
 <article>
     <a href={`/productos/${product.storeId}/${product.sku}`}>
-        <div class="flex flex-col items-center justify-center w-full h-full p-4 bg-neutral-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out">
-            <img src={product.details.imageUrl} alt={product.details.name} class="w-full aspect-square mb-4 rounded-md" />
+        <div class="flex flex-col items-center justify-center w-full h-full p-4 bg-neutral-800 hover:bg-neutral-700 rounded-lg shadow-md hover:shadow-lg group">
+            <img src={product.details.imageUrl} alt={product.details.name} class="w-full aspect-square mb-4 rounded-md group-hover:opacity-75" />
             <h2 class="text-xl font-semibold text-white">{product.details.name}</h2>
             <p class="mt-2 text-lg font-bold text-green-500">${product.details.price}</p>
         </div>
