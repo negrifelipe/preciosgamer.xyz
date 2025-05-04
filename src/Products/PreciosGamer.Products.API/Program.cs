@@ -69,6 +69,10 @@ try
         [FromRoute(Name = "StoreId")] int storeId,
         [FromRoute(Name = "ProductSKU")] string productSKU) =>
     {
+        // dont add this to the query where. it will calculate the date in the db instead of here
+        var date = DateOnly.FromDateTime(DateTime.UtcNow);
+        var date30DaysAgo = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-30));
+
         var product = await context.Products
             .AsNoTracking()
             .Where(x => x.StoreId == storeId && x.SKU == productSKU)
@@ -78,9 +82,8 @@ try
                 x.CreateDate, 
                 new ProductDetails(x.Name, x.Url, x.ImageUrl, x.Price),
                 context.ProductPrices
-                    .Where(p => p.StoreId == x.StoreId && p.SKU == x.SKU)
+                    .Where(p => p.StoreId == x.StoreId && p.SKU == x.SKU && (p.CreateDate >= date30DaysAgo && p.CreateDate <= date))
                     .OrderByDescending(x => x.CreateDate)
-                    .Take(30)
                     .Select(x => new ProductPriceResponse(x.SKU, x.StoreId, x.CreateDate, x.Price))
                     .ToList()))
             .FirstOrDefaultAsync();
