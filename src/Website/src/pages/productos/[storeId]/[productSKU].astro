@@ -13,7 +13,7 @@ if(!product)
     return Astro.redirect("/")
 ---
 
-<Layout>
+<Layout title={`${product.details.name} - Precios Gamer`}>
     <ProductInformation name={product.details.name} price={product.details.price} url={product.details.url} imageUrl={product.details.imageUrl} />
 
     <hr class="text-neutral-800 my-5" />

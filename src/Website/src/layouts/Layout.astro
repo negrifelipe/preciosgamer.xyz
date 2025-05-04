@@ -1,6 +1,12 @@
 ---
 import Header from "@/components/Header.astro";
 import "@/styles/global.css";
+
+interface Props {
+	title?: string;
+}
+
+const { title } = Astro.props as Props;
 ---
 
 <!doctype html>
@@ -10,9 +16,9 @@ import "@/styles/global.css";
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title ?? "Precios Gamer"}</title>
 	</head>
-	<body class="bg-neutral-900 text-white">
+	<body class="bg-neutral-900 text-white md:overflow-scroll">
 		<Header />
 		<div class="max-w-5xl mx-auto max-md:px-3 mt-4">
 			<slot />
