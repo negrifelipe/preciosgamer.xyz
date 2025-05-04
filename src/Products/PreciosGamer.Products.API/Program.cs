@@ -96,7 +96,35 @@ try
         return Results.Ok(product);
     });
 
-    app.Run();
+    app.MapGet("/{StoreId}/{ProductSKU}/prices", async (
+       ProductsDbContext context,
+       [FromRoute(Name = "StoreId")] int storeId,
+       [FromRoute(Name = "ProductSKU")] string productSKU,
+       [FromQuery(Name = "startDate")] DateOnly? startDate,
+       [FromQuery(Name = "endDate")] DateOnly? endDate) =>
+    {
+        var query = context.ProductPrices
+            .OrderByDescending(x => x.CreateDate)
+            .Where(x => x.SKU == productSKU && x.StoreId == x.StoreId);
+
+        if(startDate is not null)
+        {
+            query = query.Where(x => x.CreateDate >= startDate);
+        }
+
+        if(endDate is not null)
+        {
+            query = query.Where(x => x.CreateDate <= endDate);
+        }
+
+        var prices = await query
+            .Select(x => new ProductPriceResponse(x.SKU, x.StoreId, x.CreateDate, x.Price))
+            .ToListAsync();
+
+        return Results.Ok(prices);
+    });
+
+   app.Run();
 }
 catch (Exception ex)
 {
