@@ -1,0 +1,6 @@
+@PreciosGamer.ExchangeRates.API_HostAddress = http://localhost:5138
+
+GET {{PreciosGamer.ExchangeRates.API_HostAddress}}/
+Accept: application/json
+
+###
