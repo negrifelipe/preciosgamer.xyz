@@ -1,5 +1,7 @@
 using Serilog.Events;
 using Serilog;
+using Microsoft.EntityFrameworkCore;
+using PreciosGamer.ExchangeRates.API.Persistence;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -14,6 +16,8 @@ try
     builder.Services.AddSerilog((services, lc) => lc
         .ReadFrom.Configuration(builder.Configuration)
         .ReadFrom.Services(services));
+
+    builder.Services.AddDbContext<ExchangeRatesDbContext>(x => x.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 
     var app = builder.Build();
 
