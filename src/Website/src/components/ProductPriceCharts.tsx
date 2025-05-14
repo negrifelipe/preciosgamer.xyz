@@ -7,7 +7,9 @@ export default function ProductPriceCharts({
 }: {
   defaultPrices: ProductPriceResponse[];
 }) {
-  const [prices, setPrices] = useState<ProductPriceResponse[]>(defaultPrices);
+  const [prices, setPrices] = useState<ProductPriceResponse[]>(
+    defaultPrices.reverse()
+  );
 
   // TODO: Add a way to add prices from the backend so that we can display + last 30 days.
   // There should be a select with for example "Ultimos 30 daias", "Ultimos 60 dias" and "Desde el comienzo". The prices should be fetched from the backend and then set in the state.

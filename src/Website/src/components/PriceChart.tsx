@@ -18,6 +18,7 @@ export default function PriceChart({
 }) {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
+  const [ticksCount, setTicksCount] = useState(0);
 
   useEffect(() => {
     const max = Math.max(...prices.map((p) => p.price));
@@ -32,13 +33,13 @@ export default function PriceChart({
 
     setMinPrice(scaledMin);
     setMaxPrice(scaledMax);
+    setTicksCount(Math.floor((scaledMax - scaledMin) / base) + 1);
   }, [prices]);
-
   const formatter = (value: number) =>
     new Intl.NumberFormat("en-US").format(value);
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" aspect={16 / 6}>
       <LineChart
         className="text-black"
         data={prices.reverse().map((p) => {
@@ -57,6 +58,7 @@ export default function PriceChart({
           type="number"
           domain={[minPrice, maxPrice]}
           tickFormatter={formatter}
+          tickCount={ticksCount}
         />
         <Tooltip formatter={formatter} />
         <Legend />
