@@ -52,7 +52,11 @@ public class CompraGamerProductsJob : IJob
             return;
         }
 
-        if (product.CodigoPrincipal?.Length == 0 || !(product.CodigoPrincipal?[0].Contains("SKU") ?? false) && !(product.CodigoPrincipal?[0].Contains("EAN") ?? false))
+        if (product.CodigoPrincipal?.Length == 0 
+            || 
+            !(product.CodigoPrincipal?[0].Contains("SKU") ?? false) && 
+            !(product.CodigoPrincipal?[0].Contains("EAN") ?? false) &&
+            !(product.CodigoPrincipal?[0].Contains("P/N") ?? false))
         {
             _logger.LogDebug("Ignoring product {ProductId} as it has no SKU", product.IdProducto);
             return;
